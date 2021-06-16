@@ -45,3 +45,37 @@
 ## s3 Glaciers
 A service that accounts for non-frequently used data, which helps to save on cost as files or buckets that don't need to be accessed frequently can be kept in the s3 glacier. So they exist but just put to one side. If someone does need to access it notification has to be given.
 
+## Edit S3 Block public access
+- To make the bucket file globally available
+- Open the Amazon S3 console at https://console.aws.amazon.com/s3/.
+- Choose the name of the bucket that you have configured as a static website.
+- Choose Permissions.
+- Under Block public access (bucket settings), choose Edit.
+- Clear Block all public access, and choose Save changes.
+
+## Change Bucket Policy
+- Under Buckets, choose the name of your bucket.
+- Choose Permissions.
+- Under Bucket Policy, choose Edit.
+- To grant public read access for your website, copy the following bucket policy, and paste it in the Bucket policy editor.
+- `{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "PublicReadGetObject",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": [
+                "s3:GetObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::Bucket-Name/*"
+            ]
+        }
+    ]
+   }`
+- Update the Resource to your bucket name.
+- In the preceding example bucket policy, Bucket-Name is a placeholder for the bucket name. Replace with your own bucket name.
+- Choose Save changes.
+- A message appears indicating that the bucket policy has been successfully added.
+- If you see an error that says Policy has invalid resource, confirm that the bucket name in the bucket policy matches your bucket name.
